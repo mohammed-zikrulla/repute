@@ -1,0 +1,44 @@
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-top-color: #f50057;
+    animation: spin 1s ease-in-out infinite;
+}
+
+.page-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.btn {
+    margin-top: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #f50057;
+    color: white;
+    border-radius: 30%;
+    padding: 10px;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

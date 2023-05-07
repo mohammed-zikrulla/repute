@@ -1,0 +1,59 @@
+.moviesContainer {
+    display: flex;
+    flex-direction: column;
+    /* margin-top: 60px; */
+    color: white;
+}
+
+.movieRow {
+    display: flex;
+    margin-top: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.188);
+    padding: 5px;
+}
+
+.posters {
+    flex: 1;
+    width: 450px;
+    height: 300px;
+}
+
+.title-description {
+    flex: 4;
+    background-color: rgba(255, 247, 0, 0.1);
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 500px;
+    box-shadow: 0 0 70px rgba(255, 0, 0, 0.5),
+
+}
+
+.movie-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: rgb(210, 210, 210);
+    text-shadow: 2px 2px 2px #ffffff;
+    padding-left: 10px;
+}
+
+.movie-description {
+    font-size: 1rem;
+    padding: 0px 10px 0px 10px;
+    text-align: justify;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.language-rating {
+    flex: 2;
+}
+
+.movie-description span {
+    color: #c40c0c;
+    font-weight: 800;
+}
+
+.movie-likes {
+    padding: 20px;
+    color: gold;
+}
