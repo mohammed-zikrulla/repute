@@ -9,7 +9,6 @@ import {
   updateData1,
   updateData2,
   updateData3,
-  updateRecentSearch,
   updateBackgroundArray,
 } from "../Store";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,10 +20,14 @@ const Home = () => {
   const array2 = useSelector((state) => state.data2);
   const array3 = useSelector((state) => state.data3);
   const backgroundArray = useSelector((state) => state.backgroundArray);
-  const recentSearch = useSelector((state) => state.recentSearch);
-
   const [dataFetched, setDataFetched] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [array, setArray] = useState(array1);
+  const search = useSelector((state) => state.search);
+
+  if (localStorage.getItem("recentSearch") == null) {
+    localStorage.setItem("recentSearch", []);
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -32,27 +35,38 @@ const Home = () => {
     }, 1000);
   }, []);
 
+  const handleClick = (arg) => {
+    if (arg == 1) {
+      setArray(array1);
+      window.scrollTo(0, 0);
+    } else if (arg == 2) {
+      setArray(array2);
+      window.scrollTo(0, 0);
+    } else if (arg == 3) {
+      setArray(array3);
+      window.scrollTo(0, 0);
+    }
+  };
+  console.log(search);
+
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(requests.pageOne);
-      const backgroundArray =
-        response.data.results[
-          Math.floor(Math.random() * response.data.results.length)
-        ];
-      dispatch(updateBackgroundArray(backgroundArray));
-
       const result1 = await axios.get(requests.pageOne);
+      setArray(result1.data.results);
 
       dispatch(updateData1(result1.data.results));
+
+      const backgroundArray =
+        result1.data.results[
+          Math.floor(Math.random() * result1.data.results.length)
+        ];
+      dispatch(updateBackgroundArray(backgroundArray));
 
       const result2 = await axios.get(requests.pageTwo);
       dispatch(updateData2(result2.data.results));
 
       const result3 = await axios.get(requests.pageThree);
       dispatch(updateData3(result3.data.results));
-      const recentSearch = await axios.get(requests.pageThree);
-      const recentSearchLimited = recentSearch.data.results.slice(0, 3);
-      dispatch(updateRecentSearch(recentSearchLimited));
     };
     setDataFetched(true);
     fetchData();
@@ -62,14 +76,20 @@ const Home = () => {
     <div className="container">
       {dataFetched && loading ? (
         <>
-          <Navbar />
+          <Navbar array={array} />
           <Background movies={backgroundArray} />
-          <Row title={"All Popular Movies"} fetchMovies={array1} />
-          <MovieDetails fetchMovies={array1} />
+          <Row title={"All Popular Movies"} fetchMovies={array} />
+          <MovieDetails fetchMovies={array} />
           <div className="page-buttons">
-            <button className="btn">1</button>
-            <button className="btn">2</button>
-            <button className="btn">3</button>
+            <button className="btn" onClick={() => handleClick(1)}>
+              1
+            </button>
+            <button className="btn" onClick={() => handleClick(2)}>
+              2
+            </button>
+            <button className="btn" onClick={() => handleClick(3)}>
+              3
+            </button>
           </div>
         </>
       ) : (

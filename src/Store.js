@@ -6,7 +6,8 @@ const initialState = {
   data3: [],
   recentSearch: [],
   backgroundArray: [],
-  search : '',
+  filterArray: [],
+  search: "",
 };
 
 const mySlice = createSlice({
@@ -28,9 +29,12 @@ const mySlice = createSlice({
     updateBackgroundArray: (state, action) => {
       state.backgroundArray = action.payload;
     },
+    updateFilterArray: (state, action) => {
+      state.filterArray = action.payload;
+    },
     updateSearch: (state, action) => {
       state.search = action.payload;
-  }
+    },
   },
 });
 
@@ -44,6 +48,7 @@ export const {
   updateData3,
   updateRecentSearch,
   updateBackgroundArray,
+  updateFilterArray,
   updateSearch,
 } = mySlice.actions;
 export default store;

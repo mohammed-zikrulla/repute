@@ -13,6 +13,10 @@
     margin-bottom: 100px;
 }
 
+.navbar-container {
+    position: relative;
+}
+
 body {
     margin-top: 80px;
 }
