@@ -47,7 +47,6 @@ const Home = () => {
       window.scrollTo(0, 0);
     }
   };
-  console.log(search);
 
   useEffect(() => {
     const fetchData = async () => {

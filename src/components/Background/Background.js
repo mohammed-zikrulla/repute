@@ -1,13 +1,20 @@
 import "./Background.css";
 import Recents from "../Recents/Recents";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setFocus } from "../../Store";
 
 const Background = () => {
   const movies = useSelector((state) => state.backgroundArray);
   const recentSearch = useSelector((state) => state.recentSearch);
+  const focus = useSelector((state) => state.focus);
+  const dispatch = useDispatch();
+
+  const handleFocus = () => {
+    dispatch(setFocus(false));
+  };
 
   return (
-    <div>
+    <div className="background" onFocus={handleFocus} tabIndex="0">
       <header
         className="banner"
         style={{

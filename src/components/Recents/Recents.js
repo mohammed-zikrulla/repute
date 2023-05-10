@@ -1,34 +1,27 @@
 import "./Recents.css";
 import { useSelector, useDispatch } from "react-redux";
 import { updateRecentSearch } from "../../Store";
-import { useEffect } from "react";
 
 const Recents = () => {
   const dispatch = useDispatch();
 
-  const recentSearch = useSelector((state) => state.recentSearch);
-
-  useEffect(() => {
-    const searches = localStorage.getItem("recentSearch");
-    if (searches === null || JSON.parse(searches).length === 0) {
-      dispatch(updateRecentSearch([]));
-    } else {
-      dispatch(updateRecentSearch(JSON.parse(searches)));
-    }
-  }, []);
+  const recentArray = useSelector((state) => state.recentSearch);
 
   const handleDelete = (id) => {
-    const localArray = localStorage.getItem("recentSearch");
-    const updatedMovies = recentSearch.filter((movie) => movie.id !== id);
-    localStorage.setItem("recentSearch", JSON.stringify(updatedMovies));
+    const updatedMovies = recentArray.filter((movie) => movie.id !== id);
     dispatch(updateRecentSearch(updatedMovies));
+  };
+
+  const deleteAll = () => {
+    const updateMovies = [];
+    dispatch(updateRecentSearch(updateMovies));
   };
 
   return (
     <div className="recents">
       <h2 className="recent__title">recent searches</h2>
       <div className="recent__posters">
-        {recentSearch.map((movie) => (
+        {recentArray.map((movie) => (
           <div key={movie.id} className="recent__posterContainer">
             <img
               className={`recent__poster ${"recent__posterLarge"}`}
@@ -46,6 +39,14 @@ const Recents = () => {
           </div>
         ))}
       </div>
+
+      {recentArray.length > 1 && (
+        <div className="deleteAll">
+          <button className="deleteAllButton" onClick={deleteAll}>
+            Delete All
+          </button>
+        </div>
+      )}
     </div>
   );
 };

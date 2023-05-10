@@ -1,7 +1,6 @@
 .moviesContainer {
     display: flex;
     flex-direction: column;
-    /* margin-top: 60px; */
     color: white;
 }
 
@@ -77,9 +76,7 @@
         justify-content: center;
     }
 
-    .moviesContainer {
-        /* margin-left: 150px; */
-    }
+
 
 
 }
@@ -90,7 +87,6 @@
         justify-content: center;
     }
 
-    .moviesContainer {}
 
 
 }

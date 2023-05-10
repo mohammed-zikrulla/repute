@@ -1,27 +1,41 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./Suggestions.css";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRecentSearch } from "../../Store";
+import { updateRecentSearch, setFocus } from "../../Store";
 
 const Suggestions = () => {
   const filterArray = useSelector((state) => state.filterArray);
   const recentArray = useSelector((state) => state.recentSearch);
+  const focus = useSelector((state) => state.focus);
   const dispatch = useDispatch();
 
-  console.log(recentArray);
-  const handleSelect = (suggestion) => {
-    const temp = [...recentArray];
-    if (temp.every((item) => item.id !== suggestion.id)) {
-      temp.unshift(suggestion);
-      if (temp.length > 3) {
-        temp.splice(temp.length - 1, 1);
+  useEffect(() => {}, [focus, recentArray]);
+
+
+    const handleSelect = (suggestion) => {
+      const temp = [...recentArray];
+      const index = temp.findIndex((item) => item.id === suggestion.id);
+      if (index === -1) {
+        temp.unshift(suggestion);
+      } else {
+        temp.splice(index, 1);
+        temp.unshift(suggestion);
       }
-      localStorage.setItem("recentSearch", JSON.stringify(temp));
-      dispatch(updateRecentSearch(temp));
+
+    if (temp.length > 3) {
+      temp.splice(temp.length - 1, 1);
     }
+
+    dispatch(updateRecentSearch(temp));
+    dispatch(setFocus(false));
   };
-  return (
-    <div className="suggestions">
+
+  const handleBlur = () => {
+    dispatch(setFocus(false));
+  };
+
+  return focus ? (
+    <div className="suggestions" onBlur={handleBlur} tabIndex="0">
       {filterArray &&
         filterArray.length > 0 &&
         filterArray.map((suggestion) => {
@@ -36,6 +50,8 @@ const Suggestions = () => {
           );
         })}
     </div>
+  ) : (
+    <></>
   );
 };
 

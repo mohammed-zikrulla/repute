@@ -8,6 +8,7 @@ const initialState = {
   backgroundArray: [],
   filterArray: [],
   search: "",
+  focus: false,
 };
 
 const mySlice = createSlice({
@@ -35,12 +36,15 @@ const mySlice = createSlice({
     updateSearch: (state, action) => {
       state.search = action.payload;
     },
+    setFocus: (state, action) => {
+      state.focus = action.payload;
+    },
   },
 });
 
-const store = configureStore({
-  reducer: mySlice.reducer,
-});
+// const store = configureStore({
+//   reducer: mySlice.reducer,
+// });
 
 export const {
   updateData1,
@@ -50,5 +54,6 @@ export const {
   updateBackgroundArray,
   updateFilterArray,
   updateSearch,
+  setFocus,
 } = mySlice.actions;
-export default store;
+export default mySlice.reducer;

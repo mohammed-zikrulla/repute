@@ -4,7 +4,7 @@ import "./Navbar.css";
 import myImage from "./logo.png";
 import myProfile from "./profile.png";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFilterArray } from "../../Store";
+import { updateFilterArray, setFocus } from "../../Store";
 import Suggestions from "../Suggestions/Suggestions";
 
 const menuItems = [
@@ -20,22 +20,11 @@ const Navbar = ({ array }) => {
   const dispatch = useDispatch();
   const Search = useSelector((state) => state.search);
   const [search, setSearch] = useState("");
-  const [focus, setFocus] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  const focus = useSelector((state) => state.focus);
 
-  // const handleSearch = () => {
-  //   const filterArray = array1.filter((menuItem) =>
-  //     menuItem.original_title.toLowerCase().includes(search.toLowerCase())
-  //   );
-  //   dispatch(updateFilterArray(filterArray));
-  // // };
-  // const handleFocus = () => {
-  //   setIsFocused(true);
-  // };
-
-  // const handleBlur = () => {
-  //   setIsFocused(false);
-  // };
+  const handleFocus = () => {
+    dispatch(setFocus(true));
+  };
 
   const newfunn = (e) => {
     setSearch(e.target.value);
@@ -45,23 +34,14 @@ const Navbar = ({ array }) => {
       setFocus(false);
     }
     const filterArray = array.filter((menuItem) =>
-      menuItem.original_title.toLowerCase().includes(search.toLowerCase())
-    );
-    dispatch(updateFilterArray(filterArray));
-    // console.log(filterArray);
-  };
-  const arr = useSelector((state) => state.filterArray);
-  // console.log(arr);
-
-  const dropdownfunn = (e) => {
-    const filterArray = arr.filter((menuItem) =>
-      menuItem.original_language
+      menuItem.original_title
         .toLowerCase()
         .includes(e.target.value.toLowerCase())
     );
     dispatch(updateFilterArray(filterArray));
-    console.log(filterArray);
   };
+
+  const filterArray = useSelector((state) => state.filterArray);
 
   return (
     <div className="navbar-container">
@@ -81,18 +61,16 @@ const Navbar = ({ array }) => {
             <input
               type="text"
               value={search}
-              onChange={(e) => newfunn(e)}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
+              onChange={newfunn}
+              onFocus={handleFocus}
               placeholder="Search"
             />
             <FaSearch className="navbar__search-icon" />
-            {isFocused && <Suggestions />};{/* <Suggestions /> */}
+            {focus ? <Suggestions /> : <></>}
           </div>
           <div className="navbar__filter">
-            <select onChange={dropdownfunn}>
-              <option>All Languages</option>
-              <option value="en">English</option>
+            <select>
+              <option>All Languages</option>w<option value="en">English</option>
               <option value="hi">Hindi</option>
             </select>
             <FaFilter />

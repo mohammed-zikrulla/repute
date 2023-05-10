@@ -1,10 +1,13 @@
 .banner {
-    color: white;
+    color: rgb(255, 255, 255);
     object-fit: contain;
     height: 77vh;
     margin-top: -30px;
     text-shadow: 0 0 1px #FF0000, 0 0 5px #0000FF;
 }
+
+
+
 
 .banner__contents {
     padding-top: 140px;
@@ -62,3 +65,12 @@
 .banner__description {
     font-size: 16px;
 }
+
+/* Portrait */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-device-pixel-ratio: 2) {
+    .banner {}
+
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 568px) and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) {}
