@@ -8,19 +8,19 @@ const Suggestions = () => {
   const recentArray = useSelector((state) => state.recentSearch);
   const focus = useSelector((state) => state.focus);
   const dispatch = useDispatch();
+  console.log(filterArray);
 
   useEffect(() => {}, [focus, recentArray]);
 
-
-    const handleSelect = (suggestion) => {
-      const temp = [...recentArray];
-      const index = temp.findIndex((item) => item.id === suggestion.id);
-      if (index === -1) {
-        temp.unshift(suggestion);
-      } else {
-        temp.splice(index, 1);
-        temp.unshift(suggestion);
-      }
+  const handleSelect = (suggestion) => {
+    const temp = [...recentArray];
+    const index = temp.findIndex((item) => item.id === suggestion.id);
+    if (index === -1) {
+      temp.unshift(suggestion);
+    } else {
+      temp.splice(index, 1);
+      temp.unshift(suggestion);
+    }
 
     if (temp.length > 3) {
       temp.splice(temp.length - 1, 1);
@@ -33,7 +33,6 @@ const Suggestions = () => {
   const handleBlur = () => {
     dispatch(setFocus(false));
   };
-
   return focus ? (
     <div className="suggestions" onBlur={handleBlur} tabIndex="0">
       {filterArray &&

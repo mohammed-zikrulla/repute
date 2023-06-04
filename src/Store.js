@@ -9,6 +9,7 @@ const initialState = {
   filterArray: [],
   search: "",
   focus: false,
+  selectedLanguage: "",
 };
 
 const mySlice = createSlice({
@@ -39,12 +40,11 @@ const mySlice = createSlice({
     setFocus: (state, action) => {
       state.focus = action.payload;
     },
+    updateSelectedLanguage: (state, action) => {
+      state.selectedLanguage = action.payload;
+    },
   },
 });
-
-// const store = configureStore({
-//   reducer: mySlice.reducer,
-// });
 
 export const {
   updateData1,
@@ -55,5 +55,6 @@ export const {
   updateFilterArray,
   updateSearch,
   setFocus,
+  updateSelectedLanguage,
 } = mySlice.actions;
 export default mySlice.reducer;

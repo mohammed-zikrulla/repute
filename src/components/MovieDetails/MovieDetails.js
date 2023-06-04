@@ -1,13 +1,15 @@
 import "./MovieDetails.css";
+import { useDispatch, useSelector } from "react-redux";
+
 const MovieDetails = ({ fetchMovies }) => {
-  return fetchMovies.map((movie) => (
+  const filterArray = useSelector((state) => state.filterArray);
+
+  return filterArray.map((movie) => (
     <div className="moviesContainer">
       <div className="movieRow">
         <img
           className={"posters"}
-          src={`https://image.tmdb.org/t/p/${"w500"}${
-            movie.backdrop_path || movie.poster_path
-          }`}
+          src={`https://image.tmdb.org/t/p/${"w500"}${movie.backdrop_path}`}
           alt={movie.name}
         />
         <div className="title-description">

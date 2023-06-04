@@ -11,10 +11,13 @@
     box-shadow: 0 0 70px rgba(255, 255, 255, 0.5);
     width: 100%;
     margin-bottom: 100px;
+    overflow-x: hidden;
 }
+
 
 .navbar-container {
     position: relative;
+    overflow-x: hidden;
 }
 
 body {
@@ -153,6 +156,28 @@ body {
 
 .navbar__menu-item.active {
     color: red;
+}
+
+.navbar__right {
+    display: flex;
+    align-items: center;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.buttonsubmit {
+    background-color: none;
+    border: none;
+    color: white;
+    padding: 5px;
+    background-color: red;
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-top: 5px;
+
 }
 
 
